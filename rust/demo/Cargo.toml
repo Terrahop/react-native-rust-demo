@@ -1,0 +1,15 @@
+[package]
+name = "mobile_app"
+version = "0.1.0"
+authors = ["terra"]
+
+[lib]
+name = "mobile_app"
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+libc = "0.2"
+jni = { version = "0.5.1", optional = true, default-features = false }
+
+[features]
+default = ["jni"]
