@@ -3,5 +3,3 @@ members = [
   "mobile_app",
 ]
 
-[replace]
-"mobile_app:0.1.0" = { path = "./demo" }
