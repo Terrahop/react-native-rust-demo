@@ -4,39 +4,45 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Platform,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
-
-import { MobileAppBridge } from 'NativeModules'
+  View,
+  NativeModules,
+} from 'react-native'
 
 async function displayHelloWorld (self) {
+  const { MobileAppBridge } = NativeModules
+
   try {
-    let text = await MobileAppBridge.sayHelloWorld("Android")
+    const name = Platform.select({
+      ios: 'iOS',
+      android: 'Android',
+    })
+    const greeting = await MobileAppBridge.sayHelloWorld(name)
+    const message = await MobileAppBridge.hashSHA256(greeting)
+
     self.setState({
-      hello: text
+      ...self.state,
+      message
     })
   } catch (e) {
-      console.log(e)
+    console.log(e)
   }
 }
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
 export default class App extends Component<{}> {
   componentDidMount () {
+    console.log(NativeModules.RustRN)
     displayHelloWorld(this)
   }
-  state = {}
+
+  state = {
+    message: ''
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -44,13 +50,10 @@ export default class App extends Component<{}> {
           Welcome to React Native!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-        rust says: {this.state.hello}
+          {this.state.message}
         </Text>
       </View>
-    );
+    )
   }
 }
 
@@ -71,4 +74,4 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
+})
