@@ -34,17 +34,13 @@ async function displayHelloWorld (self) {
 }
 
 export default class App extends Component<{}> {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      message: '',
-    }
-  }
-
   componentDidMount () {
     console.log(NativeModules.RustRN)
     displayHelloWorld(this)
+  }
+
+  state = {
+    message: ''
   }
 
   render() {
