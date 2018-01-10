@@ -1,0 +1,2 @@
+# ignore built JNI libs; these should be rebuilt as necessary.
+jniLibs

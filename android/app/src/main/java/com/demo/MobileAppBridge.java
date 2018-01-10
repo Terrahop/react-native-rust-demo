@@ -24,5 +24,11 @@ public class MobileAppBridge extends ReactContextBaseJavaModule {
         promise.resolve(helloWorld(name));
     }
 
+    @ReactMethod
+    public void hashSHA256(String data, Promise promise) {
+        promise.resolve(sha256(data));
+    }
+
     private static native String helloWorld(String seed);
+    private static native String sha256(String data);
 }
