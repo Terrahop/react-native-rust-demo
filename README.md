@@ -14,7 +14,7 @@ Additionally the Android deployment requires the SDK for Android API 21 and the 
 ### macOS Caveats
 
 * Do NOT use brew/apt to install the Android SDK/NDK. Download the official version from the website.
-* You may need to accept the Xcode license agreement in order to build on
+* You may need to accept the Xcode license agreement in order to build: `sudo xcodebuild -license`
 
 ## Building
 
@@ -22,6 +22,7 @@ Both Android and iOS require that the NPM dependencies for React Native be insta
 
 ```shell
 $ npm install
+$ npm -g install react-native-cli
 ```
 
 ### Rust
@@ -30,18 +31,18 @@ You must install the necessary rust targets in order to cross-compile for differ
 
 ```shell
 # iOS
-rustup target add i386-apple-ios
-rustup target add armv7-apple-ios
-rustup target add armv7s-apple-ios
-rustup target add aarch64-apple-ios
-rustup target add x86_64-apple-ios
+$ rustup target add i386-apple-ios
+$ rustup target add armv7-apple-ios
+$ rustup target add armv7s-apple-ios
+$ rustup target add aarch64-apple-ios
+$ rustup target add x86_64-apple-ios
 
 # Android
-rustup target add i686-linux-android
-rustup target add arm-linux-androideabi
-rustup target add armv7-linux-androideabi
-rustup target add aarch64-linux-android
-rustup target add x86_64-linux-android
+$ rustup target add i686-linux-android
+$ rustup target add arm-linux-androideabi
+$ rustup target add armv7-linux-androideabi
+$ rustup target add aarch64-linux-android
+$ rustup target add x86_64-linux-android
 ```
 
 ### Android
