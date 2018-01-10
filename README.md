@@ -48,24 +48,24 @@ $ rustup target add x86_64-linux-android
 ### Android
 
 ```shell
-(./) $ ./create-ndk-standalone.sh
-(./) $ cd rust
+(./)     $ ./create-ndk-standalone.sh
+(./)     $ cd rust
 (./rust) $ make install-android
 (./rust) $ cd ..
-(./) $ react-native run-android
+(./)     $ react-native run-android
 ```
 
 ### IOS
 
 ```shell
-(./) $ ./create-ndk-standalone.sh
-(./) $ cd rust
+(./)     $ ./create-ndk-standalone.sh
+(./)     $ cd rust
 (./rust) $ make ios
 (./rust) $ cd ..
 
 ...?
 
-(./) $ react-native run-ios
+(./)     $ react-native run-ios
 ```
 
 TODO the `make ios` command results in the built iOS library being written to `./rust/target/universal/release/libmobile_app.a`. This needs to be used to create an iOS interface for RN.
