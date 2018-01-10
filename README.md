@@ -58,7 +58,6 @@ $ rustup target add x86_64-linux-android
 ### IOS
 
 ```shell
-(./)     $ ./create-ndk-standalone.sh
 (./)     $ cd rust
 (./rust) $ make ios
 (./rust) $ cd ..
