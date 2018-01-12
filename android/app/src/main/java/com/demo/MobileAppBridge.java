@@ -30,25 +30,31 @@ public class MobileAppBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void verifyWithEd25519(String data, Promise promise){ //proof of concept
-        String privKey = ed25519GeneratePrivateKey("");
-        String pubKey = ed25519GetPublicKey(privKey);
-        String sig = ed25519Sign(privKey, data);
-        String verified = ed25519Verify(pubKey,data,sig);
-        String response = "";
-        if(verified.equals("1")){
-           response = "Verified, Hello from rust!";
-        }
-        else if (verified.equals("0")){
-           response = "Key verification failure!";
-        }
-        promise.resolve(response);
+    public void generateKey(Promise promise) {
+        promise.resolve(ed25519GeneratePrivateKey());
+    }
+
+    @ReactMethod
+    public void calculatePublicKey(String privateKey, Promise promise) {
+        promise.resolve(ed25519GetPublicKey(privateKey));
+    }
+
+    @ReactMethod
+    public void sign(String privateKey, String data, Promise promise) {
+        String hashed = sha256(data);
+        promise.resolve(ed25519Sign(privateKey, hashed));
+    }
+
+    @ReactMethod
+    public void verify(String publicKey, String data, String signature, Promise promise) {
+        String hashed = sha256(data);
+        promise.resolve(ed25519Verify(publicKey, hashed, signature));
     }
 
     private static native String helloWorld(String seed);
     private static native String sha256(String data);
-    private static native String ed25519GeneratePrivateKey(String data);
+    private static native String ed25519GeneratePrivateKey();
     private static native String ed25519GetPublicKey(String key);
     private static native String ed25519Sign(String key, String data);
-    private static native String ed25519Verify(String key, String msg, String sig);
+    private static native boolean ed25519Verify(String key, String msg, String sig);
 }
