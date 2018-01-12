@@ -29,6 +29,32 @@ public class MobileAppBridge extends ReactContextBaseJavaModule {
         promise.resolve(sha256(data));
     }
 
+    @ReactMethod
+    public void generateKey(Promise promise) {
+        promise.resolve(ed25519GeneratePrivateKey());
+    }
+
+    @ReactMethod
+    public void calculatePublicKey(String privateKey, Promise promise) {
+        promise.resolve(ed25519GetPublicKey(privateKey));
+    }
+
+    @ReactMethod
+    public void sign(String privateKey, String data, Promise promise) {
+        String hashed = sha256(data);
+        promise.resolve(ed25519Sign(privateKey, hashed));
+    }
+
+    @ReactMethod
+    public void verify(String publicKey, String data, String signature, Promise promise) {
+        String hashed = sha256(data);
+        promise.resolve(ed25519Verify(publicKey, hashed, signature));
+    }
+
     private static native String helloWorld(String seed);
     private static native String sha256(String data);
+    private static native String ed25519GeneratePrivateKey();
+    private static native String ed25519GetPublicKey(String key);
+    private static native String ed25519Sign(String key, String data);
+    private static native boolean ed25519Verify(String key, String msg, String sig);
 }
