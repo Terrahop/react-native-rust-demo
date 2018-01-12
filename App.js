@@ -23,10 +23,12 @@ async function displayHelloWorld (self) {
     })
     const greeting = await MobileAppBridge.sayHelloWorld(name)
     const message = await MobileAppBridge.hashSHA256(greeting)
+    const reply = await MobileAppBridge.verifyWithEd25519('HeyFromReact')
 
     self.setState({
       ...self.state,
-      message
+      message,
+      reply
     })
   } catch (e) {
     console.log(e)
@@ -40,7 +42,8 @@ export default class App extends Component<{}> {
   }
 
   state = {
-    message: ''
+    message: '',
+    reply: ''
   }
 
   render() {
@@ -51,6 +54,12 @@ export default class App extends Component<{}> {
         </Text>
         <Text style={styles.instructions}>
           {this.state.message}
+        </Text>
+        <Text style={styles.instructions}>
+          Hey from React!
+        </Text>
+        <Text style={styles.instructions}>
+          {this.state.reply}
         </Text>
       </View>
     )

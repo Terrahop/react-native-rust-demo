@@ -12,6 +12,7 @@ libc = ">=0.2.35"
 ring = ">=0.12.1"
 base64 = "~0.6.0"
 jni = { version = ">=0.8.1", optional = true, default-features = false }
+untrusted = "0.5.1"
 
 [dev-dependencies]
 cargo-lipo = ">=1.0.3"
