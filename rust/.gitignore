@@ -2,3 +2,6 @@
 target
 **/*.rs.bk
 .cargo
+rust-mdns-responder
+libc
+nix
