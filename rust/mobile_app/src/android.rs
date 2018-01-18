@@ -13,6 +13,18 @@ use self::ring::{rand,digest};
 use self::ring::signature::{VerificationAlgorithm, Ed25519KeyPair, EdDSAParameters};
 use self::base64::{encode,decode};
 use self::untrusted::Input;
+use mdns::start_mdns;
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub unsafe extern fn Java_com_demo_MobileAppBridge_start_1mdns(
+  env: JNIEnv,
+  _: JClass,
+) -> jstring {
+  start_mdns();
+  let response = String::from("Started mdns");
+  env.new_string(response).unwrap().into_inner()
+}
 
 #[no_mangle]
 #[allow(non_snake_case)]
