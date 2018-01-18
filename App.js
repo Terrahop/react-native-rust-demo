@@ -45,6 +45,8 @@ async function displayHelloWorld (self) {
       neg_reply,
       reply
     })
+
+    console.log(await MobileAppBridge.startMDNS())
   } catch (e) {
     console.log(e)
   }
