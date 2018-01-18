@@ -6,3 +6,5 @@ members = [
 [replace]
 "nix:0.9.0" = { path = "./nix" }
 "libc:0.2.35" = { path = "./libc" }
+"mdns:0.2.0" = { path = "./mdns" }
+"ifaces:0.1.0" = { path = "./rust-ifaces" }
