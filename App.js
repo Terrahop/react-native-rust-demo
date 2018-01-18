@@ -11,6 +11,7 @@ import {
   Text,
   View,
   NativeModules,
+  DeviceEventEmitter,
 } from 'react-native'
 
 async function displayHelloWorld (self) {
@@ -51,12 +52,20 @@ async function displayHelloWorld (self) {
 }
 
 export default class App extends Component<{}> {
+  componentWillMount () {
+    DeviceEventEmitter.addListener('mdns', event => this.setState({
+      ...this.state,
+      mdns_events: [...this.state.mdns_events, event]
+    }))
+  }
+
   componentDidMount () {
     console.log(NativeModules.MobileAppBridge)
     displayHelloWorld(this)
   }
 
   state = {
+    mdns_events: [],
     message: '',
     name: '',
     privateKey: '',
@@ -90,6 +99,10 @@ export default class App extends Component<{}> {
         <Text style={styles.instructions}>
           Negative Verification Result (should fail): {this.state.neg_reply ? "Signature Verified" : "Failed to Verify"}
         </Text>
+        <Text style={styles.instructions}>
+          mDNS Events:
+        </Text>
+        {this.state.mdns_events.map((event, idx) => <Text style={styles.margin} key={idx}>{JSON.stringify(event)}</Text>)}
       </View>
     )
   }
@@ -111,5 +124,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+    marginLeft: 5,
+    marginRight: 5,
   },
+  margin: {
+    marginBottom: 5,
+    marginLeft: 5,
+    marginRight: 5,
+  }
 })
