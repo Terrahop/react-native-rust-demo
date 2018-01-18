@@ -20,6 +20,11 @@ public class MobileAppBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void startMDNS(Promise promise) {
+        promise.resolve(start_mdns());
+    }
+
+    @ReactMethod
     public void sayHelloWorld(String name, Promise promise) {
         promise.resolve(helloWorld(name));
     }
@@ -51,6 +56,7 @@ public class MobileAppBridge extends ReactContextBaseJavaModule {
         promise.resolve(ed25519Verify(publicKey, hashed, signature));
     }
 
+    private static native String start_mdns();
     private static native String helloWorld(String seed);
     private static native String sha256(String data);
     private static native String ed25519GeneratePrivateKey();
