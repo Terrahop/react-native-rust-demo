@@ -10,6 +10,8 @@ public class MobileAppBridge extends ReactContextBaseJavaModule {
         System.loadLibrary("mobile_app");
     }
 
+    private NSDHelper mNsdHelper;
+
     @Override
     public String getName() {
         return "MobileAppBridge";
@@ -17,6 +19,8 @@ public class MobileAppBridge extends ReactContextBaseJavaModule {
 
     public MobileAppBridge(ReactApplicationContext reactContext) {
         super(reactContext);
+        mNsdHelper = new NSDHelper(reactContext, "ProofDiscoveryDemo", 12345);
+        reactContext.addLifecycleEventListener(mNsdHelper);
     }
 
     @ReactMethod
